@@ -1,0 +1,7 @@
+# BMAD personal install answers (team config lives in _bmad/config.toml)
+_bmad/config.user.toml
+
+# Local secrets and OS files
+.env
+.env.*
+.DS_Store
