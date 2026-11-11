@@ -1,0 +1,23 @@
+name: Release CI
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release-check:
+    name: Release Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify repository
+        run: |
+          test -f README.md
+          test -d .github/workflows
+          echo "Release checks passed"
