@@ -9,7 +9,7 @@ implementation_artifacts: "{project-root}/_bmad-output/implementation-artifacts"
 project_knowledge: "{project-root}/docs"
 
 # Core Configuration Values
-user_name: Kaan
+user_name: BMad
 project_name: bar-inventory
 communication_language: English
 document_output_language: English
