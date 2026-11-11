@@ -1,7 +1,7 @@
 # Archon multi-repository setup (proposal)
 
-Status: **proposal**, not applied. Based on Archon v0.14.0 documentation and local
-validation on 2026-11-11.
+Status: **proposal**, except the per-repository base branch config (section 1), which
+is applied. Based on Archon v0.14.0 documentation and local validation on 2026-11-11.
 
 Each statement below is marked:
 
@@ -32,14 +32,12 @@ Locally verified on `bar-inventory-api`: a bash-only workflow launched with
 `dev` (`416d8f0`). The main checkout stayed on `dev` and clean. `archon complete`
 removed the worktree and local branch, and nothing was pushed.
 
-### Base branch defaults to `main` (verified, needs configuration)
+### Base branch defaults to `main` (verified, now configured)
 
 When no base is configured, Archon uses the remote's symbolic HEAD. For all three
-repositories that is `main`. Feature work must branch from `dev` and target `dev`,
-so each repository needs one of these:
-
-- `worktree.baseBranch: dev` in the repository's `.archon/config.yaml`
-- `--base dev` on every run
+repositories that is `main`. Each repository now sets `worktree.baseBranch: dev`.
+See [archon-repo-config.md](archon-repo-config.md) for the exact behavior, including
+when `--base dev` is still needed.
 
 `--base` sets both the branch a worktree is cut from and the PR target
 (`$BASE_BRANCH`). `--from` overrides only the cut-from branch.
@@ -84,9 +82,10 @@ scheduled agents, and manual release approval.
 
 ## Proposed configuration
 
-### 1. Per-repository `.archon/config.yaml` (proposed, not committed)
+### 1. Per-repository `.archon/config.yaml` (applied)
 
-Add the same file to each of the three repositories through a `feat/*` PR into `dev`:
+Each of the three repositories has this file, added through a `feat/archon-config`
+PR into `dev`:
 
 ```yaml
 # .archon/config.yaml
@@ -94,8 +93,9 @@ worktree:
   baseBranch: dev
 ```
 
-`worktree.baseBranch` is a documented key. Add `copyFiles` and `postCreate` once the
-API and KMP projects exist and their setup commands are known.
+Add `copyFiles` and `postCreate` once the API and KMP projects exist and their setup
+commands are known. Verified behavior and portability requirements:
+[archon-repo-config.md](archon-repo-config.md).
 
 ### 2. How work runs (proposed convention)
 

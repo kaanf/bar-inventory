@@ -1,0 +1,6 @@
+# Archon repository configuration (Archon v0.14.0)
+#
+# Integration branch: new worktrees are cut from it, and it is the default
+# PR target ($BASE_BRANCH). Without this, Archon follows the remote HEAD (main).
+worktree:
+  baseBranch: dev
